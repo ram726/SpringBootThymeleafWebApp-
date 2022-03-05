@@ -3,12 +3,12 @@ package com.ram.crud.SpringbootApp.controller;
 import com.ram.crud.SpringbootApp.entity.Student;
 import com.ram.crud.SpringbootApp.service.StudentService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Controller
@@ -65,5 +65,12 @@ public class StudentController {
     public String deleteStudent(@PathVariable Long id){
         studentService.deleteById(id);
         return "redirect:/students";
+    }
+
+    @RequestMapping("/")
+    public String searchStudent(Model model, @Param("keyword") String keyword){
+//        List<Student> list=studentService.getAllStudents(keyword);
+        model.addAttribute("students",studentService.getAllStudents(keyword));
+        return "students";
     }
 }

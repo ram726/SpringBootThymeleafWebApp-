@@ -39,4 +39,12 @@ public class StudentServiceImpl implements StudentService {
     public void deleteById(Long id) {
         studentRepository.deleteById(id);
     }
+
+    @Override
+    public List<Student> getAllStudents(String keyword) {
+        if(keyword!=null){
+            return studentRepository.findAll(keyword);
+        }
+        return studentRepository.findAll();
+    }
 }
